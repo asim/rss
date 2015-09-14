@@ -1,0 +1,16 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,400italic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+
+html, body {
+  color: #333;
+  padding: 10px;
+  margin: 0;
+  font-family: "Source Sans Pro", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+html a {
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+}
