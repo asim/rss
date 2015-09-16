@@ -115,7 +115,8 @@ function loadListeners() {
 	};
 
 	$(".rss").scroll(function() {
-		if($(".rss").scrollTop() == $(document).height() - $(".rss").height()) {
+		if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+			console.log("hit bottom");
 			loadMore();
 		}
 	});

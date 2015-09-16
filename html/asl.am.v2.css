@@ -15,6 +15,8 @@ html a {
   text-decoration: none;
 }
 .rss {
+  height: 100%;
+  overflow: scroll;
   width: 650px;
 }
 #items {
