@@ -6,7 +6,7 @@ import (
 )
 
 func rssHandler(w http.ResponseWriter, r *http.Request) {
-	rsp, err := http.Get("http://malten.me/thoughts?" + r.URL.RawQuery)
+	rsp, err := http.Get("http://127.0.0.1:8889/objects?" + r.URL.RawQuery)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
