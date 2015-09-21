@@ -17,11 +17,11 @@ import (
 )
 
 const (
-	defaultStream  = "_"
+	defaultStream = "_"
 	maxObjectSize = 512
 	maxObjects    = 1000
-	maxStreams     = 1000
-	streamTTL      = 8.64e13
+	maxStreams    = 1000
+	streamTTL     = 8.64e13
 )
 
 type Metadata struct {
@@ -35,16 +35,16 @@ type Metadata struct {
 }
 
 type Stream struct {
-	Id       string
+	Id      string
 	Objects []*Object
-	Updated  int64
+	Updated int64
 }
 
 type Object struct {
-	Id      string
-	Text    string
-	Created int64 `json:",string"`
-	Stream  string
+	Id       string
+	Text     string
+	Created  int64 `json:",string"`
+	Stream   string
 	Metadata *Metadata
 }
 
@@ -52,9 +52,9 @@ type Store struct {
 	Created int64
 	Updates chan *Object
 
-	mtx      sync.RWMutex
-	Streams  *lru.Cache
-	streams  map[string]int64
+	mtx       sync.RWMutex
+	Streams   *lru.Cache
+	streams   map[string]int64
 	metadatas map[string]*Metadata
 }
 
@@ -68,10 +68,10 @@ func init() {
 
 func newStore() *Store {
 	return &Store{
-		Created:  time.Now().UnixNano(),
-		Streams:  lru.New(maxStreams),
-		Updates:  make(chan *Object, 100),
-		streams:  make(map[string]int64),
+		Created:   time.Now().UnixNano(),
+		Streams:   lru.New(maxStreams),
+		Updates:   make(chan *Object, 100),
+		streams:   make(map[string]int64),
 		metadatas: make(map[string]*Metadata),
 	}
 }

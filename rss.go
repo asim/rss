@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"time"
@@ -18,7 +19,7 @@ var (
 		"http://recode.net/feed/":                                                nil,
 		"http://feedproxy.google.com/typepad/alleyinsider/silicon_alley_insider": nil,
 		"http://feeds.feedburner.com/TechCrunch/":                                nil,
-		"http://thenewstack.io/rss-feeds/":                                       nil,
+		"http://thenewstack.io/blog/feed/":                                       nil,
 		"http://thenextweb.com/feed/":                                            nil,
 		"http://valleywag.gawker.com/rss":                                        nil,
 		"http://feeds.venturebeat.com/VentureBeat":                               nil,
@@ -40,11 +41,12 @@ func fetch(feed *rss.Feed) {
 	feed.Unread = 0
 	feed.Items = []*rss.Item{}
 	if err := feed.Update(); err != nil {
+		fmt.Println("error updating", feed.UpdateURL, err)
 		return
 	}
 
 	for _, item := range feed.Items {
-		think("tech", feed.Title+": "+item.Title+"  "+item.Link)
+		think("tech", item.Title+"  "+item.Link)
 	}
 }
 
@@ -53,17 +55,21 @@ func fetchAll() {
 		if feed == nil {
 			fd, err := rss.Fetch(url)
 			if err != nil {
+				fmt.Println("error fetching", url, err)
 				continue
 			}
 			urls[url] = fd
 			feed = fd
+			for _, item := range fd.Items {
+				think("tech", item.Title+"  "+item.Link)
+			}
 		}
 		fetch(feed)
 	}
 }
 
 func main() {
-	tick := time.NewTicker(time.Minute*10)
+	tick := time.NewTicker(time.Minute)
 	for _ = range tick.C {
 		fetchAll()
 	}
