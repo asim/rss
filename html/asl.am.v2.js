@@ -78,7 +78,7 @@ function displayItems(array, direction) {
 			var d5 = document.createElement('div');
 			var d6 = document.createElement('div');
 
-			a1.innerHTML = array[i].Metadata.Site + ": " + array[i].Metadata.Title;
+			a1.innerHTML = array[i].Metadata.Title;
 			a1.href = array[i].Metadata.Url;
 			a2.href = array[i].Metadata.Url;
 			d3.className = 'image';
