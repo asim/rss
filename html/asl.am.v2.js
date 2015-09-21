@@ -1,4 +1,4 @@
-var thoughtUrl = "/rss";
+var rssUrl = "/rss";
 var limit = 25;
 var last = timeAgo();
 var typing = false;
@@ -53,7 +53,7 @@ function escapeHTML(str) {
 	return div.innerHTML;
 };
 
-function displayThoughts(array, direction) {
+function displayItems(array, direction) {
 	var list = document.getElementById('items');
 
         for(i = 0; i < array.length; i++) {
@@ -70,7 +70,7 @@ function displayThoughts(array, direction) {
 		d2.innerHTML = parseDate(array[i].Created);
 		d2.setAttribute('data-time', array[i].Created);
 
-		if (array[i].Glimmer != null) {
+		if (array[i].Metadata != null) {
 			var a1 = document.createElement('a');
 			var a2 = document.createElement('a');
 			var d3 = document.createElement('div');
@@ -78,17 +78,17 @@ function displayThoughts(array, direction) {
 			var d5 = document.createElement('div');
 			var d6 = document.createElement('div');
 
-			a1.innerHTML = array[i].Glimmer.Site + ": " + array[i].Glimmer.Title;
-			a1.href = array[i].Glimmer.Url;
-			a2.href = array[i].Glimmer.Url;
+			a1.innerHTML = array[i].Metadata.Site + ": " + array[i].Metadata.Title;
+			a1.href = array[i].Metadata.Url;
+			a2.href = array[i].Metadata.Url;
 			d3.className = 'image';
 			d4.className = 'title';
 			d5.className = 'desc';
-			d6.style.backgroundImage = "url('" + array[i].Glimmer.Image + "')";
+			d6.style.backgroundImage = "url('" + array[i].Metadata.Image + "')";
 			a2.appendChild(d6);
 			d3.appendChild(a2);
 			d4.appendChild(a1);
-			d5.innerHTML = array[i].Glimmer.Description;
+			d5.innerHTML = array[i].Metadata.Description;
 			d1.appendChild(d4);
 			d1.appendChild(d5);
 			d1.appendChild(d2);
@@ -132,9 +132,9 @@ function loadMore() {
 
 	var params = "?stream=tech&direction=-1&limit=" + limit + "&last=" + oldest;
 
-	$.get(thoughtUrl + params, function(data) {
+	$.get(rssUrl + params, function(data) {
 		if (data != undefined && data.length > 0) {
-			displayThoughts(data, -1);
+			displayItems(data, -1);
 		}
 	})
 	.fail(function(err) {
@@ -148,9 +148,9 @@ function loadMore() {
 function loadRSS() {
 	var params = "?stream=tech&direction=1&limit=" + limit + "&last=" + last;
 
-	$.get(thoughtUrl + params, function(data) {
+	$.get(rssUrl + params, function(data) {
 		if (data != undefined && data.length > 0) {
-			displayThoughts(data, 1);
+			displayItems(data, 1);
 	    		updateTimestamps();
 		}
 	})
