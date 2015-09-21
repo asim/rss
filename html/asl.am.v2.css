@@ -17,7 +17,17 @@ html a {
 .rss {
   height: 100%;
   overflow: scroll;
-  width: 650px;
+  display: inline-block;
+  margin: 0 20px 20px 0;
+  float: left;
+  border-radius: 3px;
+  border: 1px solid #DFDFDF;
+  padding: 10px;
+}
+.tweets {
+  height: 100%;
+  min-width: 350px;
+  float: left;
 }
 #items {
   list-style: none;
@@ -35,6 +45,7 @@ html a {
   float: left;
   width: 200px;
   height: 105px;
+  margin-right: 20px;
 }
 .image a {
   width: 200px;
@@ -52,7 +63,6 @@ html a {
   height: 105px;
 }
 .item {
-  margin-left: 20px;
   width: 350px;
   display: inline-block;
 }
