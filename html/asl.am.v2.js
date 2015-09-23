@@ -162,6 +162,22 @@ function loadRSS() {
         return false;
 };
 
+function pollRSS() {
+        loadRSS();
+
+        setTimeout(function() {
+            pollRSS();
+        }, 60000);
+};
+
+function pollTimestamps() {
+        updateTimestamps();
+
+        setTimeout(function() {
+            pollTimestamps();
+        }, 60000);
+};
+
 function updateTimestamps() {
 	var divs = document.getElementsByClassName('time');
 	for (i = 0; i < divs.length; i++) {
