@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -11,6 +12,8 @@ import (
 
 var (
 	urls = map[string]*rss.Feed{
+		"http://www.forbes.com/technology/feed/":                                 nil,
+		"http://fortune.com/feed/":                                               nil,
 		"http://a16z.com/feed/":                                                  nil,
 		"http://feeds.arstechnica.com/arstechnica/index":                         nil,
 		"http://feeds.feedburner.com/fastcompany/headlines":                      nil,
@@ -29,6 +32,14 @@ var (
 		"http://www.bloomberg.com/feed/bview/":                                   nil,
 	}
 )
+
+var (
+	backfill = flag.Bool("backfill", false, "")
+)
+
+func init() {
+	flag.Parse()
+}
 
 func think(stream, text string) {
 	http.PostForm("http://127.0.0.1:8889/objects", url.Values{
@@ -60,11 +71,15 @@ func fetchAll() {
 			}
 			urls[url] = fd
 			feed = fd
-			for _, item := range fd.Items {
-				think("tech", item.Title+"  "+item.Link)
+
+			if *backfill {
+				for _, item := range fd.Items {
+					think("tech", item.Title+"  "+item.Link)
+				}
 			}
 		}
 		fetch(feed)
+		feed.Refresh = time.Now()
 	}
 }
 
