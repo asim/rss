@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -11,6 +12,7 @@ import (
 
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/jbrukh/bayesian"
 )
 
 type Metadata struct {
@@ -29,6 +31,18 @@ type Object struct {
 	Created  int64 `json:",string"`
 	Stream   string
 	Metadata *Metadata
+}
+
+var (
+	files = flag.String("bayes_files", "", "comma separated list of bayes learning files")
+)
+
+func init() {
+	flag.Parse()
+	parts := strings.Split(*files, ",")
+	if len(parts) == 0 || len(parts[0]) == 0 {
+		panic("require at least one bayes file")
+	}
 }
 
 func getMetadata(uri string) *Metadata {
@@ -95,6 +109,62 @@ func main() {
 	t := time.NewTicker(time.Second * 10)
 	l := fmt.Sprintf("%d", time.Now().UnixNano())
 
+	te := bayesian.Class("tech")
+	ot := bayesian.Class("other")
+
+	fparts := strings.Split(*files, ",")
+	b, err := ioutil.ReadFile(fparts[0])
+	if err != nil {
+		panic(err.Error())
+	}
+	words := strings.Split(string(b), "\n")
+	c := bayesian.NewClassifier(te, ot)
+	c.Learn(words, te)
+
+	posts := make(chan string, 10)
+	post := time.NewTicker(time.Minute * 30)
+	var cur []string
+	var max float64
+	var total float64
+	var idx int
+
+	go func() {
+		for {
+			select {
+			case <-post.C:
+				idx = -1
+				max = -1000.0
+
+				for i, p := range cur {
+					total = 0.0
+					parts := strings.Split(strings.ToLower(p), " ")
+					scores, class, _ := c.LogScores(parts)
+
+					if class != 0 {
+						continue
+					}
+
+					for _, score := range scores {
+						total += score
+					}
+
+					if total > max {
+						max = total
+						idx = i
+					}
+				}
+
+				if idx >= 0 {
+					api.PostTweet(cur[idx], url.Values{})
+				}
+
+				cur = []string{}
+			case p := <-posts:
+				cur = append(cur, p)
+			}
+		}
+	}()
+
 	for _ = range t.C {
 		r, err := http.Get("http://127.0.0.1:8889/objects?stream=tech&last=" + l)
 		if err != nil {
@@ -123,7 +193,7 @@ func main() {
 					text = m.Title + " " + m.Url
 				}
 			}
-			api.PostTweet(text, url.Values{})
+			posts <- text
 		}
 
 		if len(objects) > 0 {
