@@ -125,7 +125,6 @@ func main() {
 	post := time.NewTicker(time.Minute * 30)
 	var cur []string
 	var max float64
-	var total float64
 	var idx int
 
 	go func() {
@@ -136,7 +135,6 @@ func main() {
 				max = -1000.0
 
 				for i, p := range cur {
-					total = 0.0
 					parts := strings.Split(strings.ToLower(p), " ")
 					scores, class, _ := c.LogScores(parts)
 
@@ -144,12 +142,12 @@ func main() {
 						continue
 					}
 
-					for _, score := range scores {
-						total += score
+					if len(scores) == 0 {
+						continue
 					}
 
-					if total > max {
-						max = total
+					if scores[0] > max {
+						max = scores[0]
 						idx = i
 					}
 				}
