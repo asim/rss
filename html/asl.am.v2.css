@@ -23,7 +23,6 @@ body {
   height: 100%;
   overflow: scroll;
   display: inline-block;
-  float: left;
   border-radius: 3px;
   border: 1px solid #DFDFDF;
   padding: 10px;
@@ -63,7 +62,7 @@ body {
 }
 .item {
   max-width: 700px;
-  display: inline-block;
+  display: inline;
 }
 .desc, .time {
   font-size: 0.8em
