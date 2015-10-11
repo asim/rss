@@ -12,6 +12,7 @@ import (
 
 var (
 	urls = map[string]*rss.Feed{
+		"http://www.buzzfeed.com/tech.xml":                                       nil,
 		"http://www.forbes.com/technology/feed/":                                 nil,
 		"http://fortune.com/feed/":                                               nil,
 		"http://a16z.com/feed/":                                                  nil,
