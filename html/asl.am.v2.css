@@ -19,6 +19,9 @@ body {
   max-width: 960px;
   
 }
+.ico {
+  float: right;
+}
 .rss {
   height: 100%;
   overflow: scroll;
