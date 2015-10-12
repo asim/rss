@@ -27,6 +27,10 @@ html a {
 .ico {
   float: right;
 }
+.ico img {
+  width: 16px;
+  height: auto;
+}
 #items {
   list-style: none;
   margin: 0;
