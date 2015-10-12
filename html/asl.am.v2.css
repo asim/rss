@@ -3,7 +3,6 @@
 
 html, body {
   color: #333;
-  padding: 10px;
   margin: 0;
   font-family: "Source Sans Pro", "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 400;
@@ -14,21 +13,19 @@ html a {
   font-weight: bold;
   text-decoration: none;
 }
-body {
+.main {
+  padding: 20px;
   margin: 0 auto;
   max-width: 960px;
   
 }
-.ico {
-  float: right;
-}
 .rss {
-  height: 100%;
-  overflow: scroll;
-  display: inline-block;
   border-radius: 3px;
   border: 1px solid #DFDFDF;
-  padding: 10px;
+  padding: 0 10px 0 10px;
+}
+.ico {
+  float: right;
 }
 #items {
   list-style: none;

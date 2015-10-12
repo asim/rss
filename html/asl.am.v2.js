@@ -114,12 +114,11 @@ function loadListeners() {
 		$.ajaxSetup({isLocal:true});
 	};
 
-	$(".rss").scroll(function() {
-		if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
-			console.log("hit bottom");
-			loadMore();
-		}
-	});
+        $(window).scroll(function() {
+                if($(window).scrollTop() == $(document).height() - $(window).height()) {
+                        loadMore();
+                }
+        });
 };
 
 function loadMore() {
