@@ -24,6 +24,9 @@ html a {
   border: 1px solid #DFDFDF;
   padding: 0 10px 0 10px;
 }
+.blurb {
+  font-size: 0.5em;
+}
 .ico {
   float: right;
 }
