@@ -44,6 +44,10 @@ html a {
 .chat {
   font-size: 1.2em;
 }
+.tweet img {
+  width: 11px;
+  height: auto;
+}
 #items {
   list-style: none;
   margin: 0;

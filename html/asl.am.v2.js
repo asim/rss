@@ -76,37 +76,47 @@ function displayItems(array, direction) {
 			var a1 = document.createElement('a');
 			var a2 = document.createElement('a');
 			var a3 = document.createElement('a');
+			var a4 = document.createElement('a');
 			var dImage = document.createElement('div');
 			var dTitle = document.createElement('div');
 			var dDesc = document.createElement('div');
 			var dBimage = document.createElement('div');
 			var dNav = document.createElement('div');	
 			var dChat = document.createElement('div');	
+			var dTweet = document.createElement('div');	
 			
 			a3.href = chatUrl + "/" + chatPre + btoa(unescape(encodeURIComponent(array[i].Metadata.Title + array[i].Metadata.Url))).slice(1, 11);
 			a3.innerHTML = "~";
 
-			dChat.appendChild(a3);
-			dNav.appendChild(dTime);
-			dNav.appendChild(dChat);
-			a1.innerHTML = array[i].Metadata.Title;
-			a1.href = array[i].Metadata.Url;
-			a2.href = array[i].Metadata.Url;
+			a4.href = "http://twitter.com/share?url=/&text=" + encodeURIComponent(array[i].Metadata.Title + " " + array[i].Metadata.Url + " via @_asl_am");
+			a4.innerHTML = "<img src=/t.png />";
+
 			dImage.className = 'image';
 			dTitle.className = 'title';
 			dDesc.className = 'desc';
 			dChat.className = "chat"
 			dNav.className = "inav"
+			dTweet.className = "tweet"
+
+			a1.innerHTML = array[i].Metadata.Title;
+			a1.href = array[i].Metadata.Url;
+			a2.href = array[i].Metadata.Url;
+			dDesc.innerHTML = array[i].Metadata.Description;
 			dBimage.style.backgroundImage = "url('" + array[i].Metadata.Image + "')";
 			a2.appendChild(dBimage);
+			dChat.appendChild(a3);
+			dTweet.appendChild(a4);
+			dNav.appendChild(dTime);
+			dNav.appendChild(dChat);
+			dNav.appendChild(dTweet);
 			dImage.appendChild(a2);
 			dTitle.appendChild(a1);
-			dDesc.innerHTML = array[i].Metadata.Description;
 			d1.appendChild(dTitle);
 			d1.appendChild(dDesc);
 			d1.appendChild(dNav);
 			item.appendChild(dImage);
 			item.appendChild(d1);
+
 			if (direction >= 0) {
 				list.insertBefore(item, list.firstChild);
 			} else {
@@ -120,6 +130,23 @@ function displayItems(array, direction) {
 	if (direction >= 0) {
 		last = array[array.length -1].Created;
 	}
+
+	$('.tweet > a').click(function(event) {
+	    var width  = 575,
+		height = 400,
+		left   = ($(window).width()  - width)  / 2,
+		top    = ($(window).height() - height) / 2,
+		url    = this.href,
+		opts   = 'status=1' +
+			 ',width='  + width  +
+			 ',height=' + height +
+			 ',top='    + top    +
+			 ',left='   + left;
+	    
+	    window.open(url, 'twitter', opts);
+	 
+	    return false;
+	});
 };
 
 function loadListeners() {
@@ -132,6 +159,7 @@ function loadListeners() {
                         loadMore();
                 }
         });
+
 };
 
 function loadMore() {
@@ -197,3 +225,4 @@ function updateTimestamps() {
 		divs[i].innerHTML = parseDate(time);
 	};
 };
+
