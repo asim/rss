@@ -1,4 +1,6 @@
 var rssUrl = "/rss";
+var chatUrl = "http://malten.me";
+var chatPre = "#asl.am.chat.";
 var limit = 25;
 var last = timeAgo();
 var typing = false;
@@ -64,35 +66,46 @@ function displayItems(array, direction) {
                 var item = document.createElement('li');
 		var html = escapeHTML(array[i].Text);
 		var d1 = document.createElement('div');
-		var d2 = document.createElement('div');
+		var dTime = document.createElement('div');
 		d1.className = 'item';
-		d2.className = 'time';
-		d2.innerHTML = parseDate(array[i].Created);
-		d2.setAttribute('data-time', array[i].Created);
+		dTime.className = 'time';
+		dTime.innerHTML = parseDate(array[i].Created);
+		dTime.setAttribute('data-time', array[i].Created);
 
 		if (array[i].Metadata != null) {
 			var a1 = document.createElement('a');
 			var a2 = document.createElement('a');
-			var d3 = document.createElement('div');
-			var d4 = document.createElement('div');
-			var d5 = document.createElement('div');
-			var d6 = document.createElement('div');
+			var a3 = document.createElement('a');
+			var dImage = document.createElement('div');
+			var dTitle = document.createElement('div');
+			var dDesc = document.createElement('div');
+			var dBimage = document.createElement('div');
+			var dNav = document.createElement('div');	
+			var dChat = document.createElement('div');	
+			
+			a3.href = chatUrl + "/" + chatPre + btoa(unescape(encodeURIComponent(array[i].Metadata.Title + array[i].Metadata.Url))).slice(1, 11);
+			a3.innerHTML = "~";
 
+			dChat.appendChild(a3);
+			dNav.appendChild(dTime);
+			dNav.appendChild(dChat);
 			a1.innerHTML = array[i].Metadata.Title;
 			a1.href = array[i].Metadata.Url;
 			a2.href = array[i].Metadata.Url;
-			d3.className = 'image';
-			d4.className = 'title';
-			d5.className = 'desc';
-			d6.style.backgroundImage = "url('" + array[i].Metadata.Image + "')";
-			a2.appendChild(d6);
-			d3.appendChild(a2);
-			d4.appendChild(a1);
-			d5.innerHTML = array[i].Metadata.Description;
-			d1.appendChild(d4);
-			d1.appendChild(d5);
-			d1.appendChild(d2);
-			item.appendChild(d3);
+			dImage.className = 'image';
+			dTitle.className = 'title';
+			dDesc.className = 'desc';
+			dChat.className = "chat"
+			dNav.className = "inav"
+			dBimage.style.backgroundImage = "url('" + array[i].Metadata.Image + "')";
+			a2.appendChild(dBimage);
+			dImage.appendChild(a2);
+			dTitle.appendChild(a1);
+			dDesc.innerHTML = array[i].Metadata.Description;
+			d1.appendChild(dTitle);
+			d1.appendChild(dDesc);
+			d1.appendChild(dNav);
+			item.appendChild(dImage);
 			item.appendChild(d1);
 			if (direction >= 0) {
 				list.insertBefore(item, list.firstChild);

@@ -31,6 +31,16 @@ html a {
   width: 16px;
   height: auto;
 }
+.inav div {
+  display: inline-block;
+  margin-right: 5px;
+}
+.time {
+  vertical-align: text-top;
+}
+.chat {
+  font-size: 1.2em;
+}
 #items {
   list-style: none;
   margin: 0;
