@@ -30,6 +30,9 @@ html a {
 .ico {
   float: right;
 }
+.ico a {
+  margin-left: 5px;
+}
 .ico img {
   width: 24px;
   height: auto;
