@@ -86,7 +86,7 @@ function displayItems(array, direction) {
 			var dTweet = document.createElement('div');	
 			
 			a3.href = chatUrl + "/" + chatPre + btoa(unescape(encodeURIComponent(array[i].Metadata.Title + array[i].Metadata.Url))).slice(1, 11);
-			a3.innerHTML = '<img src="/m.jpg" style="width:24px;height:24px;vertical-align:middle;">';
+			a3.innerHTML = '<img src=/m.png />';
 
 			a4.href = "http://twitter.com/share?url=/&text=" + encodeURIComponent(array[i].Metadata.Title + " " + array[i].Metadata.Url + " via @_asl_am");
 			a4.innerHTML = "<img src=/t.png />";

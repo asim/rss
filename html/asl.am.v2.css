@@ -39,16 +39,24 @@ html a {
 }
 .inav div {
   display: inline-block;
-  margin-right: 5px;
+  margin-top: 2px;
 }
 .time {
   vertical-align: text-middle;
+  margin-right: 5px;
 }
-.chat {
-  font-size: 1.2em;
+.tweet a, .chat a {
+  display: block;
+  height: 26px;
+  width: 26px;
+  text-align: center;
+  vertical-align: text-middle;
 }
-.tweet img {
-  width: 20px;
+.tweet a:hover, .chat a:hover {
+  background-color: #E8ECEF;
+}
+.tweet img, .chat img {
+  width: 16px;
   height: auto;
   vertical-align: middle;
 }
