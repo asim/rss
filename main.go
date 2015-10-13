@@ -56,7 +56,7 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 
 	feed := &feeds.Feed{
 		Title:       "asl.am rss feed",
-		Link:        &feeds.Link{Href: "http://asl.am/rss.atom"},
+		Link:        &feeds.Link{Href: "http://" + r.Host + r.RequestURI},
 		Description: "Startup and tech related news",
 		Author:      &feeds.Author{"asl.am", ""},
 		Created:     time.Now(),
