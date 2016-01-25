@@ -1,6 +1,4 @@
 var rssUrl = "/rss";
-var chatUrl = "http://malten.me";
-var chatPre = "#asl.am.chat.";
 var limit = 25;
 var last = timeAgo();
 var typing = false;
@@ -82,19 +80,14 @@ function displayItems(array, direction) {
 			var dDesc = document.createElement('div');
 			var dBimage = document.createElement('div');
 			var dNav = document.createElement('div');	
-			var dChat = document.createElement('div');	
 			var dTweet = document.createElement('div');	
 			
-			a3.href = chatUrl + "/" + chatPre + btoa(unescape(encodeURIComponent(array[i].Metadata.Title + array[i].Metadata.Url))).slice(1, 11);
-			a3.innerHTML = '<img src=/m.png />';
-
 			a4.href = "http://twitter.com/share?url=/&text=" + encodeURIComponent(array[i].Metadata.Title + " " + array[i].Metadata.Url + " via @_asl_am");
 			a4.innerHTML = "<img src=/t.png />";
 
 			dImage.className = 'image';
 			dTitle.className = 'title';
 			dDesc.className = 'desc';
-			dChat.className = "chat"
 			dNav.className = "inav"
 			dTweet.className = "tweet"
 
@@ -104,10 +97,8 @@ function displayItems(array, direction) {
 			dDesc.innerHTML = array[i].Metadata.Description;
 			dBimage.style.backgroundImage = "url('" + array[i].Metadata.Image + "')";
 			a2.appendChild(dBimage);
-			dChat.appendChild(a3);
 			dTweet.appendChild(a4);
 			dNav.appendChild(dTime);
-			dNav.appendChild(dChat);
 			dNav.appendChild(dTweet);
 			dImage.appendChild(a2);
 			dTitle.appendChild(a1);
