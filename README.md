@@ -1,3 +1,3 @@
-# [asl.am](https://asl.am)
+# rss
 
-This is asl.am an RSS feed for tech news
+This is an RSS feed for tech news
