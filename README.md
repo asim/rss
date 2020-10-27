@@ -1,5 +1,3 @@
-# asl.am.v2
+# [asl.am](https://asl.am)
 
-This is asl.am v2 an RSS feed for tech news
-
-Check out the original [asl.am](https://github.com/asim/asl.am)
+This is asl.am an RSS feed for tech news
