@@ -55,12 +55,12 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	feed := &feeds.Feed{
-		Title:       "asl.am rss feed",
+		Title:       "RSS feed",
 		Link:        &feeds.Link{Href: "http://" + r.Host + r.RequestURI},
 		Description: "Startup and tech related news",
-		Author:      &feeds.Author{"asl.am", ""},
+		Author:      &feeds.Author{"RSS", ""},
 		Created:     time.Now(),
-		Copyright:   "Copyright © asl.am",
+		Copyright:   "Copyright © RSS",
 	}
 
 	for i := len(m) - 1; i >= 0; i-- {
